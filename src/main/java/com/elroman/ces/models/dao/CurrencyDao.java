@@ -37,7 +37,7 @@ public class CurrencyDao {
 	}
 
 	public Currency getById(int id) {
-		return (Currency) getSession().load(Currency.class, id);
+		return (Currency) getSession().get(Currency.class, id);
 	}
 
 	public void update(Currency currency) {

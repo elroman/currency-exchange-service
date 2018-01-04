@@ -49,7 +49,7 @@ public class MainController {
 		currencyDao.save(new Currency(978, "UAH", "Euro"));
 		currencyDao.save(new Currency(643, "RUB", "Russian Rouble"));
 
-		rateDao.save(new Rate(new Date(), currencyDao.getById(840), currencyDao.getById(980), new BigDecimal("28.10"), rateSourceDao.getById(rs.getId())));
+		rateDao.save(new Rate(currencyDao.getById(840), currencyDao.getById(980), new BigDecimal("28.10"), rateSourceDao.getById(rs.getId())));
 
 		return "initial DB done!";
 	}

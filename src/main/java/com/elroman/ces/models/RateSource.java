@@ -1,5 +1,6 @@
 package com.elroman.ces.models;
 
+import com.google.gson.Gson;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -36,9 +37,6 @@ public class RateSource {
 
 	@Override
 	public String toString() {
-		return "RateSource{" +
-				"id='" + id + '\'' +
-				", name='" + name + '\'' +
-				'}';
+		return new Gson().toJson(this);
 	}
 }

@@ -10,75 +10,87 @@ import java.util.Date;
 @Table(name = "rate")
 public class Rate {
 
-	@Id
-	@GeneratedValue(generator = "uuid")
-	@GenericGenerator(name = "uuid", strategy = "uuid")
-	@Column(name = "id", unique = true, length = 32)
-	private String id;
+    @Id
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid")
+    @Column(name = "id", unique = true, length = 32)
+    private String id;
 
-	@Column(name = "date", nullable = false, length = 50)
-	private Date date;
+    @Column(name = "rateTime", nullable = false, length = 50)
+    private Date rateTime = new Date();
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	private Currency currencyFrom;
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Currency currencyFrom;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	private Currency currencyTo;
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Currency currencyTo;
 
-	@Column(name = "rate", nullable = false)
-	private BigDecimal rate;
+    @Column(name = "rate", nullable = false)
+    private BigDecimal rate;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	private RateSource rateSource;
+    @ManyToOne(fetch = FetchType.EAGER)
+    private RateSource rateSource;
 
-	public Rate() {
-	}
+    public Rate() {
+    }
 
-	public Rate(String id) {
-		this.id = id;
-	}
+    public Rate(String id) {
+        this.id = id;
+    }
 
-	public Rate(Date date, Currency currencyFrom, Currency currencyTo, BigDecimal rate, RateSource rateSource) {
-		this.date = date;
-		this.currencyFrom = currencyFrom;
-		this.currencyTo = currencyTo;
-		this.rate = rate;
-		this.rateSource = rateSource;
-	}
+    public Rate(Currency currencyFrom, Currency currencyTo, BigDecimal rate, RateSource rateSource) {
+        this.rateTime = new Date();
+        this.currencyFrom = currencyFrom;
+        this.currencyTo = currencyTo;
+        this.rate = rate;
+        this.rateSource = rateSource;
+    }
 
-	public String getId() {
-		return id;
-	}
+    public String getId() {
+        return id;
+    }
 
-	public Date getDate() {
-		return date;
-	}
+    public Date getRateTime() {
+        return rateTime;
+    }
 
-	public Currency getCurrencyFrom() {
-		return currencyFrom;
-	}
+    public Currency getCurrencyFrom() {
+        return currencyFrom;
+    }
 
-	public Currency getCurrencyTo() {
-		return currencyTo;
-	}
+    public Currency getCurrencyTo() {
+        return currencyTo;
+    }
 
-	public BigDecimal getRate() {
-		return rate;
-	}
+    public BigDecimal getRate() {
+        return rate;
+    }
 
-	public RateSource getRateSource() {
-		return rateSource;
-	}
+    public RateSource getRateSource() {
+        return rateSource;
+    }
 
-	@Override
-	public String toString() {
-		return "Rate{" +
-				"id=" + id +
-				", date=" + date +
-				", currencyFrom=" + currencyFrom +
-				", currencyTo=" + currencyTo +
-				", rate=" + rate +
-				", rateSource=" + rateSource +
-				'}';
-	}
+    @Override
+    public String toString() {
+        return "Rate{" +
+                "id='" + id + '\'' +
+                ", rateTime=" + rateTime +
+                ", currencyFrom=" + currencyFrom +
+                ", currencyTo=" + currencyTo +
+                ", rate=" + rate +
+                ", rateSource=" + rateSource +
+                '}';
+    }
+
+    public String toJson() {
+        StringBuffer sb = new StringBuffer();
+        sb.append("{")
+                .append("\"fromCurr\":\"").append(currencyFrom.getAlias()).append("\",")
+                .append("\"toCurr\":\"").append(currencyTo.getAlias()).append("\",")
+                .append("\"rate\":").append(rate).append(",")
+                .append("\"rate time\":\"").append(rateTime).append("\",")
+                .append("\"source ID\":\"").append(rateSource.getName()).append("\"")
+                .append("}");
+        return sb.toString();
+    }
 }

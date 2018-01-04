@@ -37,7 +37,7 @@ public class RateDao {
 	}
 
 	public Rate getById(String id) {
-		return (Rate) getSession().load(Rate.class, id);
+		return (Rate) getSession().get(Rate.class, id);
 	}
 
 	public void update(Rate rate) {

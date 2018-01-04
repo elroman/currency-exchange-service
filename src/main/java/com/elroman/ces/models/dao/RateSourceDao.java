@@ -30,11 +30,11 @@ public class RateSourceDao {
 	}
 
 	public RateSource getById(String id) {
-		return (RateSource) getSession().load(RateSource.class, id);
+		return (RateSource) getSession().get(RateSource.class, id);
 	}
 
 	public RateSource getByName(String name) {
-		return (RateSource) getSession().load(RateSource.class, name);
+		return (RateSource) getSession().get(RateSource.class, name);
 	}
 
 	public void update(RateSource rateSource) {

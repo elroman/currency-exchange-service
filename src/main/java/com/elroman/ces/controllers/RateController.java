@@ -2,8 +2,10 @@ package com.elroman.ces.controllers;
 
 import com.elroman.ces.models.Rate;
 import com.elroman.ces.models.dao.RateDao;
+import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -40,7 +42,7 @@ public class RateController {
 		return "Rate successfully saved!";
 	}
 
-	@RequestMapping(value = "/id", method = GET)
+	@RequestMapping(method = GET)
 	@ResponseBody
 	public String getById(String id) {
 		Rate rate;
@@ -49,7 +51,7 @@ public class RateController {
 		} catch (Exception ex) {
 			return "Rate not found";
 		}
-		return rate.toString();
+		return rate.toJson();
 	}
 
 	@RequestMapping(value = "/source")

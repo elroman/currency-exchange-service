@@ -1,5 +1,7 @@
 package com.elroman.ces.models;
 
+import com.google.gson.Gson;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -49,10 +51,6 @@ public class Currency {
 
 	@Override
 	public String toString() {
-		return "Currency{" +
-				"code=" + code +
-				", alias='" + alias + '\'' +
-				", name='" + name + '\'' +
-				'}';
+		return new Gson().toJson(this);
 	}
 }
