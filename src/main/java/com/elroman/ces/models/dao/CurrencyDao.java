@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Repository
 @Transactional
@@ -34,6 +35,17 @@ public class CurrencyDao {
 	public void delete(Currency currency) {
 		getSession().delete(currency);
 		return;
+	}
+
+	public List<Currency> getAll() {
+		return getSession().createQuery("from Currency").list();
+	}
+
+	public Currency getByAlias(String alias) {
+		return (Currency) getSession().createQuery(
+				"from Currency where alias = :alias")
+				.setParameter("alias", alias)
+				.uniqueResult();
 	}
 
 	public Currency getById(int id) {

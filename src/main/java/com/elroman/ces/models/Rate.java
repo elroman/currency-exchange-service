@@ -89,7 +89,7 @@ public class Rate {
                 .append("\"toCurr\":\"").append(currencyTo.getAlias()).append("\",")
                 .append("\"rate\":").append(rate).append(",")
                 .append("\"rate time\":\"").append(rateTime).append("\",")
-                .append("\"source ID\":\"").append(rateSource.getName()).append("\"")
+                .append("\"source ID\":\"").append(rateSource.getSourceName()).append("\"")
                 .append("}");
         return sb.toString();
     }

@@ -17,22 +17,38 @@ public class RateSource {
 	private String id;
 
 	@NotNull
-	@Column(name = "name", nullable = false, length = 50)
-	private String name;
+	@Column(name = "source_name", nullable = false, length = 50)
+	private String sourceName;
+
+	@Column(name = "source_url", nullable = false, length = 150)
+	private String sourceUrl;
+
+	@Column(name = "isActive")
+	private Boolean active;
 
 	public RateSource() {
 	}
 
-	public RateSource(String name) {
-		this.name = name;
+	public RateSource(String sourceName, String sourceUrl, Boolean active) {
+		this.sourceName = sourceName;
+		this.sourceUrl = sourceUrl;
+		this.active = active;
 	}
 
 	public String getId() {
 		return id;
 	}
 
-	public String getName() {
-		return name;
+	public String getSourceName() {
+		return sourceName;
+	}
+
+	public String getSourceUrl() {
+		return sourceUrl;
+	}
+
+	public Boolean getActive() {
+		return active;
 	}
 
 	@Override
