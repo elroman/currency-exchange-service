@@ -6,18 +6,16 @@ import com.elroman.ces.models.RateSource;
 import com.elroman.ces.models.dao.CurrencyDao;
 import com.elroman.ces.models.dao.RateDao;
 import com.elroman.ces.models.dao.RateSourceDao;
-import com.elroman.ces.models.parser.impl.FinanceParser;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.elroman.ces.models.parser.impl.FinanceUaParser;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
-import java.net.URL;
 import java.util.List;
 
 @Service
 public class ParseService {
+	final static Logger LOGGER = Logger.getLogger(ParseService.class);
 
 	@Autowired
 	private RateSourceDao rateSourceDao;
@@ -28,40 +26,33 @@ public class ParseService {
 	@Autowired
 	private RateDao rateDao;
 
+	@Autowired
+	private HttpService httpService;
+
 	public void updateInfoFromSource() {
+		LOGGER.debug("ParseService: start update rate info.");
 		List<RateSource> activeSources = rateSourceDao.getActiveSources();
 
 		activeSources.stream().map(this::getRawInfoFromRateSource)
 				.map(this::getParsedRatesFromRawInfo)
 				.forEach(this::saveRates);
 
-		System.out.println("ParseService : updateInfoFromSource!!!!!! ");
+		LOGGER.debug("ParseService: finish update rate info.");
 	}
 
 	private String getRawInfoFromRateSource(RateSource rateSource) {
-		URL file = getClass().getClassLoader().getResource("test_data_finance_ua_privat.json");
-
-		ObjectMapper mapper = new ObjectMapper();
-		try {
-
-			JsonNode root = mapper.readTree(file);
-			return root.toString();
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return "";
+		return httpService.sendGetRequestWithResponse(rateSource.getSourceUrl());
 	}
 
-	private List<Rate> getParsedRatesFromRawInfo(String rawInfo)  {
+	private List<Rate> getParsedRatesFromRawInfo(String rawInfo) {
 		List<Currency> currencyListForParse = currencyDao.getAll();
 		Currency currencyTo = currencyDao.getByAlias("UAH");
 
-		FinanceParser financeParser = new FinanceParser(rateSourceDao.getBySourceName("finance.ua"), currencyListForParse, currencyTo, rawInfo);
+		FinanceUaParser financeParser = new FinanceUaParser(rateSourceDao.getBySourceName("finance.ua"), currencyListForParse, currencyTo, rawInfo);
 		return financeParser.parseToRates();
 	}
 
-	private void saveRates(List<Rate> rates)  {
+	private void saveRates(List<Rate> rates) {
 		rates.forEach(rate -> rateDao.save(rate));
 	}
 

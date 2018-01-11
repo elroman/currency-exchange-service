@@ -37,6 +37,11 @@ public class CurrencyDao {
 		return;
 	}
 
+	public void deleteAll() {
+		getSession().createQuery("delete from Currency");
+		return;
+	}
+
 	public List<Currency> getAll() {
 		return getSession().createQuery("from Currency").list();
 	}

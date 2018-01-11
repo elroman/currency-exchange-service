@@ -30,6 +30,11 @@ public class RateSourceDao {
 		return;
 	}
 
+	public void deleteAll() {
+		getSession().createQuery("delete from RateSource");
+		return;
+	}
+
 	public RateSource getById(String id) {
 		return (RateSource) getSession().get(RateSource.class, id);
 	}
@@ -41,12 +46,13 @@ public class RateSourceDao {
 				.uniqueResult();
 	}
 
-	public  List<RateSource> getActiveSources() {
+	public List<RateSource> getActiveSources() {
 		return (List<RateSource>) getSession().createQuery(
 				"from RateSource where active = :active")
 				.setParameter("active", true)
 				.list();
 	}
+
 	public List<RateSource> getAll() {
 		return getSession().createQuery("from RateSource").list();
 	}

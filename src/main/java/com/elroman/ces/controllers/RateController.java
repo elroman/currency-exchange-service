@@ -2,6 +2,7 @@ package com.elroman.ces.controllers;
 
 import com.elroman.ces.models.Rate;
 import com.elroman.ces.models.dao.RateDao;
+import com.elroman.ces.service.ParseService;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +19,9 @@ public class RateController {
 
 	@Autowired
 	private RateDao rateDao;
+
+	@Autowired
+	private ParseService parseService;
 
 	@RequestMapping(method = DELETE)
 	@ResponseBody
@@ -64,5 +68,14 @@ public class RateController {
 			return ex.getMessage();
 		}
 		return rate.toString();
+	}
+
+	@RequestMapping(value = "/refresh", method = GET)
+	@ResponseBody
+	public String refreshInfo() {
+
+		parseService.updateInfoFromSource();
+
+		return "refreshInfo done!";
 	}
 }

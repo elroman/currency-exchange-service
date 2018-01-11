@@ -1,6 +1,7 @@
 package com.elroman.ces.models.dao;
 
 import com.elroman.ces.models.Rate;
+import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import javax.transaction.Transactional;
 @Repository
 @Transactional
 public class RateDao {
+	final static Logger LOGGER = Logger.getLogger(RateDao.class);
 
 	@Autowired
 	private SessionFactory sessionFactory;
@@ -26,6 +28,11 @@ public class RateDao {
 
 	public void delete(Rate rate) {
 		getSession().delete(rate);
+		return;
+	}
+
+	public void deleteAll() {
+		getSession().createQuery("delete from Rate");
 		return;
 	}
 

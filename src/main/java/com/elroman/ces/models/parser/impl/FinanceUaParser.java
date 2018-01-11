@@ -11,9 +11,9 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FinanceParser extends SourceData {
+public class FinanceUaParser extends SourceData {
 
-	public FinanceParser(RateSource fromSource, List<Currency> currencyListForParse, Currency currencyTo, String rawData) {
+	public FinanceUaParser(RateSource fromSource, List<Currency> currencyListForParse, Currency currencyTo, String rawData) {
 		super(fromSource, currencyListForParse, currencyTo, rawData);
 	}
 
@@ -24,28 +24,32 @@ public class FinanceParser extends SourceData {
 
 		ObjectMapper mapper = new ObjectMapper();
 		try {
-			JsonNode financeJson = mapper.readTree(getRawData());
+			JsonNode financeJson = mapper.readTree(rawData);
 			JsonNode organizationsNode = financeJson.path("organizations");
 
 			if (organizationsNode.isArray()) {
 				for (final JsonNode organizationNode : organizationsNode) {
 
+					String organizationId = organizationNode.path("id").asText();
+
+					// TODO now i check PRIVAT_BANK RATES only
+					if(!organizationId.equals("7oiylpmiow8iy1sma7w")) continue;
+
 					JsonNode currenciesNode = organizationNode.path("currencies");
 
-					for (final Currency currency : getCurrencyListForParse()) {
+					for (final Currency currency : currencyListForParse) {
 
 						JsonNode currencyNode = currenciesNode.path(currency.getAlias());
 						if (currencyNode.isObject()) {
 							String rateStr = currencyNode.path("ask").asText();
 
-							rates.add(new Rate(currency, getCurrencyTo(), new BigDecimal(rateStr), getFromSource()));
-
+							rates.add(new Rate(currency, currencyTo, new BigDecimal(rateStr), rateSource));
 						}
 					}
 				}
 			}
-		} catch (IOException e) {
-			e.printStackTrace();
+		} catch (IOException ex) {
+			LOGGER.error("Problem with parsing raw data: "+ ex);
 		}
 
 		return rates;

@@ -3,25 +3,28 @@ package com.elroman.ces.models.parser.impl;
 import com.elroman.ces.models.Currency;
 import com.elroman.ces.models.RateSource;
 import com.elroman.ces.models.parser.DataParser;
+import com.elroman.ces.service.ParseService;
+import org.apache.log4j.Logger;
 
 import java.util.List;
 
 public abstract class SourceData implements DataParser {
+	final static Logger LOGGER = Logger.getLogger(ParseService.class);
 
-	private RateSource fromSource;
-	private List<Currency> currencyListForParse;
-	private Currency currencyTo;
-	private String rawData;
+	protected RateSource rateSource;
+	protected List<Currency> currencyListForParse;
+	protected Currency currencyTo;
+	protected String rawData;
 
-	public SourceData(RateSource fromSource, List<Currency> currencyListForParse, Currency currencyTo, String rawData) {
-		this.fromSource = fromSource;
+	public SourceData(RateSource rateSource, List<Currency> currencyListForParse, Currency currencyTo, String rawData) {
+		this.rateSource = rateSource;
 		this.currencyListForParse = currencyListForParse;
 		this.currencyTo = currencyTo;
 		this.rawData = rawData;
 	}
 
-	public RateSource getFromSource() {
-		return fromSource;
+	public RateSource getRateSource() {
+		return rateSource;
 	}
 
 	public List<Currency> getCurrencyListForParse() {
@@ -39,7 +42,7 @@ public abstract class SourceData implements DataParser {
 	@Override
 	public String toString() {
 		return "SourceData{" +
-				"fromSource=" + fromSource +
+				"rateSource=" + rateSource +
 				", currencyListForParse=" + currencyListForParse +
 				", currencyTo=" + currencyTo +
 				", rawData='" + rawData + '\'' +
