@@ -49,8 +49,8 @@ public class RateController {
 
             return rate.toJson();
         } catch (InvalidParameterException ex) {
-            return "The exchange rate can not be found for these parameters currency from: " + currencyFromStr
-                    + " currency to:" + currencyToStr;
+            return "The exchange rate can not be found for these parameters: currency from = " + currencyFromStr
+                    + " currency to =" + currencyToStr;
         }
     }
 
