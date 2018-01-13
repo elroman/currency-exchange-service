@@ -14,8 +14,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class ParseService {
-	final static Logger LOGGER = Logger.getLogger(ParseService.class);
+public class WorkerService {
+	final static Logger LOGGER = Logger.getLogger(WorkerService.class);
 
 	@Autowired
 	private RateSourceDao rateSourceDao;
@@ -29,7 +29,7 @@ public class ParseService {
 	@Autowired
 	private HttpService httpService;
 
-	public void updateInfoFromSource() {
+	public void updateRatesFromActiveSources() {
 		LOGGER.debug("ParseService: start update rate info.");
 		List<RateSource> activeSources = rateSourceDao.getActiveSources();
 

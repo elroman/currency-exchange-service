@@ -2,7 +2,7 @@ package com.elroman.ces.controllers;
 
 import com.elroman.ces.models.Rate;
 import com.elroman.ces.models.dao.RateDao;
-import com.elroman.ces.service.ParseService;
+import com.elroman.ces.service.WorkerService;
 import com.elroman.ces.service.RateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,7 +22,7 @@ public class RateController {
     private RateDao rateDao;
 
     @Autowired
-    private ParseService parseService;
+    private WorkerService workerService;
 
     @Autowired
     private RateService rateService;
@@ -93,7 +93,7 @@ public class RateController {
     @ResponseBody
     public String refreshInfo() {
 
-        parseService.updateInfoFromSource();
+        workerService.updateRatesFromActiveSources();
 
         return "Refresh rates info has done!";
     }
