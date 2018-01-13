@@ -11,15 +11,15 @@ import java.net.URL;
 @Service
 public class HttpService {
 
-	private final String USER_AGENT = "Mozilla/5.0";
-
 	public String sendGetRequestWithResponse(String url) {
 
 		try {
+			String userAgent = "Mozilla/5.0";
+
 			URL obj = new URL(url);
 			HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 			con.setRequestMethod("GET");
-			con.setRequestProperty("User-Agent", USER_AGENT);
+			con.setRequestProperty("User-Agent", userAgent);
 
 			int responseCode = con.getResponseCode();
 			System.out.println("\nSending 'GET' request to URL : " + url);

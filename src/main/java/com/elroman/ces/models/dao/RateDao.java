@@ -1,5 +1,6 @@
 package com.elroman.ces.models.dao;
 
+import com.elroman.ces.models.Currency;
 import com.elroman.ces.models.Rate;
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
@@ -19,6 +20,18 @@ public class RateDao {
 
 	private Session getSession() {
 		return sessionFactory.getCurrentSession();
+	}
+
+	public Rate getLastByCurrencies(Currency currencyFrom, Currency currencyTo) {
+		return (Rate) getSession().createQuery(
+				"FROM Rate " +
+						"WHERE currencyFrom = :currencyFrom " +
+						"AND currencyTo = :currencyTo " +
+						"ORDER BY rateTime DESC ")
+				.setParameter("currencyFrom", currencyFrom)
+				.setParameter("currencyTo", currencyTo)
+				.setMaxResults(1)
+				.uniqueResult();
 	}
 
 	public void save(Rate rate) {
