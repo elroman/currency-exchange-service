@@ -1,5 +1,6 @@
 package com.elroman.ces.models;
 
+import com.elroman.ces.utils.DateUtil;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -17,7 +18,7 @@ public class Rate {
     private String id;
 
     @Column(name = "rateTime", nullable = false, length = 50)
-    private Date rateTime = new Date();
+    private Date rateTime = DateUtil.getDateWithTimeZone(new Date());
 
     @ManyToOne(fetch = FetchType.EAGER)
     private Currency currencyFrom;
@@ -39,7 +40,7 @@ public class Rate {
     }
 
     public Rate(Currency currencyFrom, Currency currencyTo, BigDecimal rate, RateSource rateSource) {
-        this.rateTime = new Date();
+        this.rateTime = DateUtil.getDateWithTimeZone(new Date());
         this.currencyFrom = currencyFrom;
         this.currencyTo = currencyTo;
         this.rate = rate;

@@ -50,11 +50,46 @@ public class RateController {
             return rate.toJson();
         } catch (InvalidParameterException ex) {
             return "The exchange rate can not be found for these parameters: currency from = " + currencyFromStr
-                    + " currency to =" + currencyToStr;
+                    + ", currency to =" + currencyToStr;
         }
     }
 
-    @RequestMapping(value = "/refresh", method = PUT)
+    @RequestMapping(value = "/{currFrom}/{currTo}/{dateTo}", method = GET)
+    @ResponseBody
+    public String getLatestRateByDate(@PathVariable("currFrom") String currencyFromStr,
+                                      @PathVariable("currTo") String currencyToStr,
+                                      @PathVariable("dateTo") String dateToStr) {
+
+        try {
+            Rate rate = rateService.getLatestRateByDate(currencyFromStr, currencyToStr, dateToStr);
+
+            return rate.toJson();
+        } catch (InvalidParameterException ex) {
+            return "The exchange rate can not be found for these parameters: currency from = " + currencyFromStr
+                    + ", currency to =" + currencyToStr
+                    + ", date to =" + dateToStr;
+        }
+    }
+
+    @RequestMapping(value = "/{currFrom}/{currTo}/{dateTo}/{timeTo}", method = GET)
+    @ResponseBody
+    public String getLatestRateByTime(@PathVariable("currFrom") String currencyFromStr,
+                                      @PathVariable("currTo") String currencyToStr,
+                                      @PathVariable("dateTo") String dateToStr,
+                                      @PathVariable("timeTo") String timeToStr) {
+
+        try {
+            Rate rate = rateService.getLatestRateByTime(currencyFromStr, currencyToStr, dateToStr, timeToStr);
+
+            return rate.toJson();
+        } catch (InvalidParameterException ex) {
+            return "The exchange rate can not be found for these parameters: currency from = " + currencyFromStr
+                    + ", currency to =" + currencyToStr
+                    + ", date to =" + dateToStr;
+        }
+    }
+
+    @RequestMapping(value = "/refresh", method = GET)
     @ResponseBody
     public String refreshInfo() {
 
