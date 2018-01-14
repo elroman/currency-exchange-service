@@ -12,8 +12,8 @@ import java.util.concurrent.TimeUnit;
 
 @Service
 public class ScheduleService {
-    final static Logger LOGGER = Logger.getLogger(ScheduleService.class);
-
+    private final static Logger LOGGER = Logger.getLogger(ScheduleService.class);
+    private final static int MIN_TIMES_PER_DAY = 2;
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
     private ScheduledFuture<?> scheduledTask;
 
@@ -22,10 +22,12 @@ public class ScheduleService {
 
     public void startSchedule(Integer timesPerDay) {
         if (scheduledTask == null || scheduledTask.isCancelled()) {
-            timesPerDay = Optional.ofNullable(timesPerDay).orElse(2);
+            timesPerDay = Optional.ofNullable(timesPerDay).orElse(MIN_TIMES_PER_DAY);
+            timesPerDay = Integer.max(timesPerDay, MIN_TIMES_PER_DAY); // if timesPerDay in param less then min times
+
             int secondsInDay = (24 * 60 * 60);
 
-            int period = secondsInDay / Integer.max(timesPerDay, 2);
+            int period = secondsInDay / timesPerDay;
             LOGGER.debug("ScheduleService: start schedule " + timesPerDay + " times per day");
 
             Runnable task = () -> workerService.updateRatesFromActiveSources();

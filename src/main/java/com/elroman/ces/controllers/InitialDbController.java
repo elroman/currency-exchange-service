@@ -15,6 +15,7 @@ import java.math.BigDecimal;
 
 import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 
 @Controller
 @RequestMapping(value = "/initial-db")
@@ -29,7 +30,7 @@ public class InitialDbController {
     @Autowired
     private RateDao rateDao;
 
-    @RequestMapping(value = "/fill-tables", method = GET)
+    @RequestMapping(value = "/fill-tables", method = PUT)
     @ResponseBody
     public String fillInfoToTables() {
         clearTables();
