@@ -51,6 +51,10 @@ public class RateSource {
 		return active;
 	}
 
+	public void setActive(Boolean active) {
+		this.active = active;
+	}
+
 	@Override
 	public String toString() {
 		return new Gson().toJson(this);

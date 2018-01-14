@@ -55,5 +55,4 @@ public class WorkerService {
 	private void saveRates(List<Rate> rates) {
 		rates.forEach(rate -> rateDao.save(rate));
 	}
-
 }

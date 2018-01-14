@@ -14,8 +14,11 @@ If you un app in http://localhost:8080
  - /schedule/start                        GET                 start scheduler 2 times per day 
  - /schedule/start                        GET                 start scheduler 2 times per day 
  - /schedule/start?timesPerDay=10         GET                 start scheduler 10 times per day 
- 
- 
+ - /rate-sources/                         GET                 return list of all resource sources
+ - /rate-sources/set-active?id=sourceID&active=true PUT       set active(true/false) mark for source, 
+                                                              if will be true, then scheduler will get info from source url 
+   
+
 ## Build and Run
 For run application in Docker containers need to prepare the environment: 
 - Java 8

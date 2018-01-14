@@ -71,6 +71,4 @@ public class RateService {
 
         return Optional.ofNullable(rate).orElseThrow(InvalidParameterException::new);
     }
-
-
 }
