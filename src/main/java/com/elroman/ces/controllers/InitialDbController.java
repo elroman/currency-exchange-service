@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.math.BigDecimal;
 
 import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 
 @Controller
@@ -33,6 +32,10 @@ public class InitialDbController {
     @RequestMapping(value = "/fill-tables", method = PUT)
     @ResponseBody
     public String fillInfoToTables() {
+        //
+        // ONLY FOR FILLING TEST DB
+        //
+
         clearTables();
 
         Currency currUAH = new Currency(980, "UAH", "Ukraine Hryvnia");
@@ -46,8 +49,8 @@ public class InitialDbController {
         RateSource rs = new RateSource("finance.ua", "http://resources.finance.ua/ru/public/currency-cash.json", currUAH, true);
 
         rateSourceDao.save(rs);
-        rateSourceDao.save(new RateSource("fixer.io", "https://api.fixer.io/latest",currEUR, false));
-        rateSourceDao.save(new RateSource("NBU", "nbu.com.ua/source",currUAH, false));
+        rateSourceDao.save(new RateSource("fixer.io", "https://api.fixer.io/latest", currEUR, false));
+        rateSourceDao.save(new RateSource("NBU", "nbu.com.ua/source", currUAH, false));
 
         rateDao.save(new Rate(currencyDao.getById(840), currencyDao.getById(980), new BigDecimal("28.10"), rateSourceDao.getById(rs.getId())));
 

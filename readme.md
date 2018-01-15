@@ -8,6 +8,8 @@ If you un app in http://localhost:8080
     
  - /initial-db/fill-tables                PUT                 start preparation DB with pre-clearing
  - /initial-db/clear-db                   DELETE              clear DB
+ - /currencies                            GET                 currency list
+ - /currencies/new                        POST                add new currency
  - /rate/{currFrom}/{currTo}              GET                 get rate for pair currFrom-currTo
  - /rate/{currFrom}/{currTo}/{dateTo}     GET                 get rate for pair currFrom-currTo by date
  - /rate/{currFrom}/{currTo}/{dateTo}/{timeTo} GET            get rate for pair currFrom-currTo by date and time
@@ -15,10 +17,10 @@ If you un app in http://localhost:8080
  - /schedule/start                        GET                 start scheduler 2 times per day 
  - /schedule/start?timesPerDay=10         GET                 start scheduler 10 times per day 
  - /rate-sources/                         GET                 return list of all resource sources
+ - /rate-sources/new                      POST                add new resource source
  - /rate-sources/set-active?id=sourceID&active=true PUT       set active(true/false) mark for source, 
                                                               if will be true, then scheduler will get info from source url 
    
-
 ## Build and Run
 For run application in Docker containers need to prepare the environment: 
 - Java 8
