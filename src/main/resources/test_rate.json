@@ -1,17 +1,37 @@
 {
-  "currencyFrom": {
-    "code": 840,
-    "alias": "USD",
-    "name": "United States Dollar"
-  },
-  "currencyTo": {
-    "code": 980,
-    "alias": "UAH",
-    "name": "Ukraine Hryvnia"
-  },
-  "rate": 28.35,
-  "rateSource": {
-    "id": "ff80818160c2b42b0160c2b455a20000",
-    "name": "finance.ua"
+  "base": "EUR",
+  "date": "2018-01-12",
+  "rates": {
+    "AUD": 1.5417,
+    "BGN": 1.9558,
+    "BRL": 3.8959,
+    "CAD": 1.5194,
+    "CHF": 1.1787,
+    "CNY": 7.8417,
+    "CZK": 25.521,
+    "DKK": 7.4487,
+    "GBP": 0.88983,
+    "HKD": 9.4962,
+    "HRK": 7.4454,
+    "HUF": 308.74,
+    "IDR": 16180.0,
+    "ILS": 4.1272,
+    "INR": 77.192,
+    "JPY": 134.88,
+    "KRW": 1289.5,
+    "MXN": 23.196,
+    "MYR": 4.8255,
+    "NOK": 9.659,
+    "NZD": 1.6726,
+    "PHP": 61.144,
+    "PLN": 4.1722,
+    "RON": 4.6363,
+    "RUB": 68.707,
+    "SEK": 9.835,
+    "SGD": 1.6103,
+    "THB": 38.802,
+    "TRY": 4.5587,
+    "USD": 1.2137,
+    "ZAR": 15.048
   }
 }

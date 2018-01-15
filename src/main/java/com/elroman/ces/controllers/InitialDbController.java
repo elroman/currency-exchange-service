@@ -35,16 +35,19 @@ public class InitialDbController {
     public String fillInfoToTables() {
         clearTables();
 
-        RateSource rs = new RateSource("finance.ua", "http://resources.finance.ua/ru/public/currency-cash.json", true);
+        Currency currUAH = new Currency(980, "UAH", "Ukraine Hryvnia");
+        Currency currEUR = new Currency(978, "EUR", "Euro");
+
+        currencyDao.save(currUAH);
+        currencyDao.save(currEUR);
+        currencyDao.save(new Currency(840, "USD", "United States Dollar"));
+        currencyDao.save(new Currency(643, "RUB", "Russian Rouble"));
+
+        RateSource rs = new RateSource("finance.ua", "http://resources.finance.ua/ru/public/currency-cash.json", currUAH, true);
 
         rateSourceDao.save(rs);
-        rateSourceDao.save(new RateSource("fixer.io", "fixer.io/source", false));
-        rateSourceDao.save(new RateSource("NBU", "nbu.com.ua/source", false));
-
-        currencyDao.save(new Currency(980, "UAH", "Ukraine Hryvnia"));
-        currencyDao.save(new Currency(840, "USD", "United States Dollar"));
-        currencyDao.save(new Currency(978, "EUR", "Euro"));
-        currencyDao.save(new Currency(643, "RUB", "Russian Rouble"));
+        rateSourceDao.save(new RateSource("fixer.io", "https://api.fixer.io/latest",currEUR, false));
+        rateSourceDao.save(new RateSource("NBU", "nbu.com.ua/source",currUAH, false));
 
         rateDao.save(new Rate(currencyDao.getById(840), currencyDao.getById(980), new BigDecimal("28.10"), rateSourceDao.getById(rs.getId())));
 
