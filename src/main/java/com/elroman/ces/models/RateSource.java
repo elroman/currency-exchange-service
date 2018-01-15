@@ -23,15 +23,19 @@ public class RateSource {
 	@Column(name = "source_url", nullable = false, length = 150)
 	private String sourceUrl;
 
+	@ManyToOne(fetch = FetchType.EAGER)
+	private Currency defaultCurrencyTo;
+
 	@Column(name = "isActive")
 	private Boolean active;
 
 	public RateSource() {
 	}
 
-	public RateSource(String sourceName, String sourceUrl, Boolean active) {
+	public RateSource(String sourceName, String sourceUrl, Currency defaultCurrencyTo, Boolean active) {
 		this.sourceName = sourceName;
 		this.sourceUrl = sourceUrl;
+		this.defaultCurrencyTo = defaultCurrencyTo;
 		this.active = active;
 	}
 
@@ -45,6 +49,10 @@ public class RateSource {
 
 	public String getSourceUrl() {
 		return sourceUrl;
+	}
+
+	public Currency getDefaultCurrencyTo() {
+		return defaultCurrencyTo;
 	}
 
 	public Boolean getActive() {

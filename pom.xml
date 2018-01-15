@@ -21,6 +21,10 @@
         <docker.image.prefix>ces</docker.image.prefix>
         <docker.image.name>${artifactId}</docker.image.name>
         <docker.maven.plugin.version>0.4.13</docker.maven.plugin.version>
+        <junit.version>4.12</junit.version>
+        <mockito.version>2.13.0</mockito.version>
+        <assertj.version>3.8.0</assertj.version>
+        <spring.test.version>4.3.12.RELEASE</spring.test.version>
     </properties>
 
     <dependencyManagement>
@@ -62,6 +66,32 @@
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-core</artifactId>
             <version>2.9.3</version>
+        </dependency>
+
+        <!--Test-->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>${mockito.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>${assertj.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>${spring.test.version}</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 

@@ -18,14 +18,18 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
 @RequestMapping(value = "/rate")
 public class RateController {
 
-    @Autowired
     private RateDao rateDao;
 
-    @Autowired
     private WorkerService workerService;
 
-    @Autowired
     private RateService rateService;
+
+    @Autowired
+    public RateController(RateDao rateDao, WorkerService workerService, RateService rateService) {
+        this.rateDao = rateDao;
+        this.workerService = workerService;
+        this.rateService = rateService;
+    }
 
     @RequestMapping(method = GET)
     @ResponseBody
